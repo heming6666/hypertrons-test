@@ -107,16 +107,3 @@ sched('Auto merge', '0 0 */1 * * *', function ()
     end
   end
 end)
-
--- Issue auto translation
-on('IssueEvent', function (e)
-  if(e.action == 'opened') then
-    local title = e.title;
-    local body = e.body;
-    if (hasChineseChar(title)) then
-      translate(e, title, 'en', function(res)
-        print(res);
-      end)
-    end
-  end
-end)
