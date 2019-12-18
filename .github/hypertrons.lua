@@ -110,5 +110,9 @@ end)
 
 -- Issue auto translation
 on('IssueEvent', function (e)
-  print(e)
+  if(e.action == 'opened' or e.action == 'edited') then
+    translate(e, '323', 'sd', function(res)
+      print('1111')
+    end)
+  end
 end)
