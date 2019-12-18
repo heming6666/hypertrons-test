@@ -107,3 +107,8 @@ sched('Auto merge', '0 0 */1 * * *', function ()
     end
   end
 end)
+
+-- Issue auto translation
+on('IssueEvent', function (e)
+  print(e)
+end)
