@@ -110,9 +110,12 @@ end)
 
 -- Issue auto translation
 on('IssueEvent', function (e)
-  if(e.action == 'opened' or e.action == 'edited') then
-    translate(e, '323', 'sd', function(res)
-      print('1111')
-    end)
+  if (e.action == 'opened' or e.action == 'edited') then
+    print(e.title)
+    if (hasChineseChar(e.title)) then 
+      translate(e, e.title, e.body, function(res)
+        print('1111')
+      end)
+    end
   end
 end)
