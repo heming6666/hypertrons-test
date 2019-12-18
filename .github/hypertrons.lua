@@ -108,13 +108,13 @@ sched('Auto merge', '0 0 */1 * * *', function ()
   end
 end)
 
--- Issue auto translation
+-- Issue auto translation (zh-CN to en)
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
     print(e.title)
     if (hasChineseChar(e.title)) then 
-      translate(e, e.title, e.body, function(res)
-        print('1111')
+      translate(e.title, 'en', function(res)
+        print(res)
       end)
     end
   end
