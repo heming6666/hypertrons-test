@@ -110,7 +110,7 @@ end)
 
 -- Auto translate issue to English 
 on('IssueEvent', function (e)
-  if (e.action == 'opened' or e.action == 'edited') then
+  if (e.action == 'opened') then
     translate(e.title, 'en', function(translatedTitle)
       local commentHeader = renderString(config['issue-english-translator'].header, {author=e.author})
       local commentTitle = renderString(config['issue-english-translator'].title, {title=translatedTitle})
