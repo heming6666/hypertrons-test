@@ -115,15 +115,14 @@ local issueTransCommentBody = '<br><br> {{body}}'
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
     Translate(e.title, 'en', function(translatedTitle)
-      local commentHeader = renderString(issueTransCommentHeader, {author : e.author})
-      local commentTitle = renderString(issueTransCommentTitle, {title: translatedTitle})
+      local commentHeader = renderString(issueTransCommentHeader, {"author" : e.author})
+      local commentTitle = renderString(issueTransCommentTitle, {"title": translatedTitle})
       Translate(e.body, 'en', function(translatedBody)
-        local commentBody = renderString(issueTransCommentBody, {body: translatedBody})
+        local commentBody = renderString(issueTransCommentBody, {"body": translatedBody})
         local comment = commentHeader .. commentTitle .. commentBody
         addIssueComment(e.number, comment)
         print('Issue #' .. e.number .. 'translate done ')
       end)
     end)
-    
   end
 end)
