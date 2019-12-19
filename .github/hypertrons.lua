@@ -115,10 +115,19 @@ on('IssueEvent', function (e)
       local commentHeader = renderString(config['issue-english-translator'].header, {author=e.author})
       local commentTitle = renderString(config['issue-english-translator'].title, {title=translatedTitle})
       translate(e.body, 'en', function(translatedBody)
-        local commentBody = renderString(config['issue-english-translator'].body, {body=translatedBody})
-        local comment = commentHeader .. commentTitle .. commentBody
-        addIssueComment(e.number, comment)
-        print('Issue #' .. e.number .. 'translate done ')
+        if ( translatedTitle ~= e.title or translatedBody ~= e.body) 
+        then
+          local commentBody = renderString(config['issue-english-translator'].body, {body=translatedBody})
+          local comment = commentHeader .. commentTitle .. commentBody
+          addIssueComment(e.number, comment)
+          print('Issue #' .. e.number .. 'translate done ')
+        else
+          print('No translate need for issue #' .. e.number)
+        end
+        if ( translatedTitle ~= e.title ) then
+          updateIssue(e.number, {title=translatedTitle})
+          print('Issue #' .. e.number .. ' title moidfy done ')
+        end
       end)
     end)
   end
