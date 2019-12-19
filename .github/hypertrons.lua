@@ -117,7 +117,7 @@ on('IssueEvent', function (e)
       end)
     end
     print('body=', e.body)
-    local bodyArray = split(body,'\n')
+    local bodyArray = split(e.body,'\n')
     for i = 1, #bodyArray do
       print('bodyArray:', bodyArray[i])
     end
