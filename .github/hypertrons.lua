@@ -118,6 +118,9 @@ on('IssueEvent', function (e)
     end
     print('body=', e.body)
     local bodyArray = split(body,'\n')
+    for i = 1, #bodyArray do
+      print('bodyArray:', bodyArray[i])
+    end
     bodyTransResult = {}
     for i = 1, #bodyArray do
       if (hasChineseChar(bodyArray[i])) then
@@ -127,7 +130,7 @@ on('IssueEvent', function (e)
       end
     end
     for i=1, #bodyTransResult do
-      print('i', bodyTransResult[i])
+      print('bodyTransResult', bodyTransResult[i])
     end
   end
 end)
