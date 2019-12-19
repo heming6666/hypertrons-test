@@ -108,17 +108,15 @@ sched('Auto merge', '0 0 */1 * * *', function ()
   end
 end)
 
-local issueTransCommentHeader = '> Hi @{{author}}, we detect non-English characters in the issue. This comment is an auto translation to help other users to understand this issue. <br> ***We encourage you to describe your issue in English which is more friendly to other users.***'
-local issueTransCommentTitle = '<br><br> ### {{title}}'
-local issueTransCommentBody = '<br><br> {{body}}'
--- Issue auto translation 
+-- Auto translate issue to English 
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
-    Translate(e.title, 'en', function(translatedTitle)
-      local commentHeader = renderString(issueTransCommentHeader, {author=e.author})
-      local commentTitle = renderString(issueTransCommentTitle, {title=translatedTitle})
-      Translate(e.body, 'en', function(translatedBody)
-        local commentBody = renderString(issueTransCommentBody, {body=translatedBody})
+    local to = config['issue-english-translator'].to
+    translate(e.title, to, function(translatedTitle)
+      local commentHeader = renderString(config['issue-english-translator'].header, {author=e.author})
+      local commentTitle = renderString(config['issue-english-translator'].title, {title=translatedTitle})
+      translate(e.body, 'en', function(translatedBody)
+        local commentBody = renderString(config['issue-english-translator'].body, {body=translatedBody})
         local comment = commentHeader .. commentTitle .. commentBody
         addIssueComment(e.number, comment)
         print('Issue #' .. e.number .. 'translate done ')
