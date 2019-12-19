@@ -113,18 +113,17 @@ on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
     if (hasChineseChar(e.title)) then 
       translate(e.title, 'en', function(res)
-        print(res)
+        print('res title = ', res)
       end)
     end
-    print('body=', e.body)
     local bodyArray = split(e.body,'\n')
-    for i = 1, #bodyArray do
-      print('bodyArray:', bodyArray[i])
-    end
+    print('split bodyArray successfully ... ')
     bodyTransResult = {}
     for i = 1, #bodyArray do
       if (hasChineseChar(bodyArray[i])) then
+        print('bodyArray[', i, '] = ', bodyArray[i], ' has chinese char ...')
         translate(bodyArray[i], 'en', function(res)
+          print('res = ', res)
           table.insert(bodyTransResult, res)
         end)
       end
