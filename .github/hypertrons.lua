@@ -112,14 +112,11 @@ end)
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
     chineseTranslator(e.title, 'en', function(res)
-      print('res title = ', res)
+      print('res title = ', res.translatedText)
     end)
     local bodyTransResult = ''
     chineseTranslator(e.body, 'en', function(res)
-      for i = 1, #res do
-        print('res.originalText = ', res.originalText)
-        bodyTransResult = res.translatedText
-      end
+      bodyTransResult = res.translatedText
     end)
     print('bodyTransResult', bodyTransResult)
   end
