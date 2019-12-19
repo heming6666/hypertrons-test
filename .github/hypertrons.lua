@@ -112,7 +112,7 @@ end)
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
     chineseTranslator({e.title}, 'en', function(res)
-      print('res title = ', res[])
+      print('res title = ', res)
     end)
     local bodyArray = split(e.body,'\n')
     print('split bodyArray successfully ... ')
