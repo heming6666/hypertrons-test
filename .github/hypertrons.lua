@@ -117,7 +117,7 @@ on('IssueEvent', function (e)
     local bodyTransResult = ''
     chineseTranslator(e.body, 'en', function(res)
       bodyTransResult = res.translatedText
+      print('bodyTransResult', bodyTransResult)
     end)
-    print('bodyTransResult', bodyTransResult)
   end
 end)
