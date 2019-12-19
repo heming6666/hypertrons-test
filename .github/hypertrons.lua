@@ -111,13 +111,11 @@ end)
 -- Issue auto translation (zh-CN to en)
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
-    chineseTranslator(e.title, 'en', function(res)
-      print('res title = ', res.translatedText)
+    Translate(e.title, 'en', function(res)
+      print('res title = ', res)
     end)
-    local bodyTransResult = ''
-    chineseTranslator(e.body, 'en', function(res)
-      bodyTransResult = res.translatedText
-      print('bodyTransResult', bodyTransResult)
+    Translate(e.body, 'en', function(res)
+      print('res body = ', res)
     end)
   end
 end)
