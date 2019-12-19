@@ -111,11 +111,23 @@ end)
 -- Issue auto translation (zh-CN to en)
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
-    print(e.title)
     if (hasChineseChar(e.title)) then 
       translate(e.title, 'en', function(res)
         print(res)
       end)
+    end
+    print('body=', e.body)
+    local bodyArray = split(body,'\n')
+    bodyTransResult = {}
+    for i = 1, #bodyArray do
+      if (hasChineseChar(bodyArray[i])) then
+        translate(bodyArray[i], 'en', function(res)
+          table.insert(bodyTransResult, res)
+        end)
+      end
+    end
+    for i=1, #bodyTransResult do
+      print('i', bodyTransResult[i])
     end
   end
 end)
