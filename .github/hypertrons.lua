@@ -108,14 +108,22 @@ sched('Auto merge', '0 0 */1 * * *', function ()
   end
 end)
 
--- Issue auto translation (zh-CN to en)
+local issueTransCommentHeader = '> Hi @{{author}}, we detect non-English characters in the issue. This comment is an auto translation to help other users to understand this issue. <br> ***We encourage you to describe your issue in English which is more friendly to other users.***'
+local issueTransCommentTitle = '<br><br> ### {{title}}'
+local issueTransCommentBody = '<br><br> {{body}}'
+-- Issue auto translation 
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
-    Translate(e.title, 'en', function(res)
-      print('res title = ', res)
+    Translate(e.title, 'en', function(translatedTitle)
+      local commentHeader = renderString(issueTransCommentHeader, {author : e.author})
+      local commentTitle = renderString(issueTransCommentTitle, {title: translatedTitle})
+      Translate(e.body, 'en', function(translatedBody)
+        local commentBody = renderString(issueTransCommentBody, {body: translatedBody})
+        local comment = commentHeader .. commentTitle .. commentBody
+        addIssueComment(e.number, comment)
+        print('Issue #' .. e.number .. 'translate done ')
+      end)
     end)
-    Translate(e.body, 'en', function(res)
-      print('res body = ', res)
-    end)
+    
   end
 end)
