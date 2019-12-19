@@ -111,23 +111,16 @@ end)
 -- Issue auto translation (zh-CN to en)
 on('IssueEvent', function (e)
   if (e.action == 'opened' or e.action == 'edited') then
-    chineseTranslator({e.title}, 'en', function(res)
+    chineseTranslator(e.title, 'en', function(res)
       print('res title = ', res)
     end)
-    local bodyArray = split(e.body,'\n')
-    print('split bodyArray successfully ... ')
-    for i=1, #bodyArray do
-      print('bodyTransResult', bodyArray[i])
-    end
-    bodyTransResult = {}
-    chineseTranslator(bodyArray, 'en', function(res)
+    local bodyTransResult = ''
+    chineseTranslator(e.body, 'en', function(res)
       for i = 1, #res do
-        print('body = ', res[i].originalText)
-        table.insert(bodyTransResult, res[i].translatedText)
+        print('res.originalText = ', res.originalText)
+        bodyTransResult = res.translatedText
       end
     end)
-    for i=1, #bodyTransResult do
-      print('bodyTransResult', bodyTransResult[i])
-    end
+    print('bodyTransResult', bodyTransResult)
   end
 end)
