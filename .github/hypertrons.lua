@@ -114,10 +114,17 @@ on('IssueEvent', function (e)
     chineseTranslator({e.title}, 'en', function(res)
       print('res title = ', res[1].translatedText)
     end)
-    chineseTranslator(e.body, 'en', function(res)
+    local bodyArray = split(e.body,'\n')
+    print('split bodyArray successfully ... ')
+    bodyTransResult = {}
+    chineseTranslator(bodyArray, 'en', function(res)
       for i = 1, #res do
         print('body = ', res[i].originalText)
+        table.insert(bodyTransResult, res[i].translatedText)
       end
     end)
+    for i=1, #bodyTransResult do
+      print('bodyTransResult', bodyTransResult[i])
+    end
   end
 end)
