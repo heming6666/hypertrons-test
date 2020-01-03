@@ -1,6 +1,6 @@
 {
-  "label-setup": {
-    "enable": true,
+  "label_setup": {
+    "version": 1,
     "labels": [
       {
         "__merge__": true
@@ -37,28 +37,29 @@
       }
     ]
   },
-  "weekly-report": {
-    "enable": true,
-    "generateTime": "0 54 20 * * 6"
+  "weekly_report": {
+    "version": 1,
+    "generateTime": "0 0 12 * * 1"
   },
   "role": {
+    "version": 1,
     "roles": [
       {
         "name": "committer",
         "description": "Committer of the project",
-        "users": [ "heming6666" ],
+        "users": [ "frank-zsy", "WuShaoling", "GoodMeowing", "heming6666", "liwen-tj" ],
         "commands": [ "/difficulty", "/rerun" ]
       },
       {
         "name": "replier",
         "description": "Replier is responsible for reply issues in time",
-        "users": [ "heming6666" ],
+        "users": [ "frank-zsy", "WuShaoling", "GoodMeowing" ],
         "commands": []
       },
       {
         "name": "approver",
         "description": "After approvers' approve, pulls should be merged automatically",
-        "users": [ "heming6666" ],
+        "users": [ "frank-zsy", "WuShaoling", "GoodMeowing", "heming6666", "liwen-tj" ],
         "commands": [ "/approve" ]
       },
       {
@@ -81,5 +82,34 @@
       }
     ]
   },
-  "lua": ".github/hypertrons.lua"
+  "command": {
+    "version": 1,
+    "commands": [
+      {
+        "name": "/approve",
+        "scopes": [ "review", "review_comment", "pull_comment" ]
+      }
+    ]
+  },
+  "approve": {
+    "version": 1
+  },
+  "auto_merge": {
+    "version": 1
+  },
+  "difficulty": {
+    "version": 1
+  },
+  "issue_reminder": {
+    "version": 1
+  },
+  "rerun": {
+    "version": 1
+  },
+  "auto_label": {
+    "version": 1
+  },
+  "self_assign": {
+    "version": 1
+  }
 }
