@@ -111,5 +111,8 @@
   },
   "self_assign": {
     "version": 1
+  },
+  "issue_english_translator": {
+    "version": 1
   }
 }
